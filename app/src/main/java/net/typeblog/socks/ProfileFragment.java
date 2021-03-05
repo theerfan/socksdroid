@@ -9,11 +9,14 @@ import android.content.ServiceConnection;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.ListPreference;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
+import com.takisoft.preferencex.EditTextPreference;
+import androidx.annotation.Nullable;
+import androidx.preference.CheckBoxPreference;
+//import androidx.preference.EditTextPreference;
+//import android.preference.PreferenceFragment;
+import androidx.preference.Preference;
+import androidx.preference.ListPreference;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -32,7 +35,7 @@ import java.util.Locale;
 
 import static net.typeblog.socks.util.Constants.*;
 
-public class ProfileFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener,
+public class ProfileFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener,
         CompoundButton.OnCheckedChangeListener {
     private ProfileManager mManager;
     private Profile mProfile;
@@ -72,12 +75,14 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
 
     private ListPreference mPrefProfile, mPrefRoutes;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
-            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW;
-    private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto;
+            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Pkey, mPrefSSH_Password;
+    private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefSSH;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
         super.onCreate(savedInstanceState);
+//        setPreferencesFromResource(R.xml.settings, rootKey);
         addPreferencesFromResource(R.xml.settings);
         setHasOptionsMenu(true);
         mManager = new ProfileManager(getActivity().getApplicationContext());
@@ -184,6 +189,21 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         } else if (p == mPrefAuto) {
             mProfile.setAutoConnect(Boolean.parseBoolean(newValue.toString()));
             return true;
+        } else if (p == mPrefSSH) {
+            mProfile.setIsSSH(Boolean.parseBoolean(newValue.toString()));
+            return true;
+        } else if (p == mPrefSSH_Host) {
+            mProfile.setSSH_Host(newValue.toString());
+            return true;
+        } else if (p == mPrefSSH_UserName) {
+            mProfile.setSSH_UserName(newValue.toString());
+            return true;
+        } else if (p == mPrefSSH_Password) {
+            mProfile.setSSH_Password(newValue.toString());
+            return true;
+        } else if (p == mPrefSSH_Pkey) {
+            mProfile.setSSH_Pkey(newValue.toString());
+            return true;
         } else {
             return false;
         }
@@ -225,6 +245,11 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefUDP = (CheckBoxPreference) findPreference(PREF_UDP_PROXY);
         mPrefUDPGW = (EditTextPreference) findPreference(PREF_UDP_GW);
         mPrefAuto = (CheckBoxPreference) findPreference(PREF_ADV_AUTO_CONNECT);
+        mPrefSSH = (CheckBoxPreference) findPreference(PREF_SELF_SSH);
+        mPrefSSH_Host = (EditTextPreference) findPreference(PREF_SSH_HOST);
+        mPrefSSH_UserName = (EditTextPreference) findPreference(PREF_SSH_USERNAME);
+        mPrefSSH_Pkey = (EditTextPreference) findPreference(PREF_SSH_PKEY);
+        mPrefSSH_Password = (EditTextPreference) findPreference(PREF_SSH_PASSWORD);
 
         mPrefProfile.setOnPreferenceChangeListener(this);
         mPrefServer.setOnPreferenceChangeListener(this);
@@ -242,6 +267,11 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefUDP.setOnPreferenceChangeListener(this);
         mPrefUDPGW.setOnPreferenceChangeListener(this);
         mPrefAuto.setOnPreferenceChangeListener(this);
+        mPrefSSH.setOnPreferenceChangeListener(this);
+        mPrefSSH_Host.setOnPreferenceChangeListener(this);
+        mPrefSSH_UserName.setOnPreferenceChangeListener(this);
+        mPrefSSH_Pkey.setOnPreferenceChangeListener(this);
+        mPrefSSH_Password.setOnPreferenceChangeListener(this);
     }
 
     private void reload() {
@@ -261,6 +291,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefIPv6.setChecked(mProfile.hasIPv6());
         mPrefUDP.setChecked(mProfile.hasUDP());
         mPrefAuto.setChecked(mProfile.autoConnect());
+        mPrefSSH.setChecked(mProfile.isSSH());
 
         mPrefServer.setText(mProfile.getServer());
         mPrefPort.setText(String.valueOf(mProfile.getPort()));
@@ -269,7 +300,13 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefDns.setText(mProfile.getDns());
         mPrefDnsPort.setText(String.valueOf(mProfile.getDnsPort()));
         mPrefUDPGW.setText(mProfile.getUDPGW());
-        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW);
+        mPrefSSH_Host.setText(mProfile.getSSH_Host());
+        mPrefSSH_UserName.setText(mProfile.getSSH_UserName());
+        mPrefSSH_Pkey.setText(mProfile.getSSH_Pkey());
+        mPrefSSH_Password.setText(mProfile.geSSH_Password());
+
+
+        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Password, mPrefSSH_Pkey);
 
         mPrefAppList.setText(mProfile.getAppList());
     }

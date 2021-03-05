@@ -37,5 +37,10 @@ public class Constants
             PREF_ADV_PER_APP = "adv_per_app",
             PREF_ADV_APP_BYPASS = "adv_app_bypass",
             PREF_ADV_APP_LIST = "adv_app_list",
-            PREF_ADV_AUTO_CONNECT = "adv_auto_connect";
+            PREF_ADV_AUTO_CONNECT = "adv_auto_connect",
+            PREF_SELF_SSH = "self_ssh",
+            PREF_SSH_HOST = "ssh_host",
+            PREF_SSH_USERNAME = "ssh_username",
+            PREF_SSH_PKEY = "ssh_pkey",
+            PREF_SSH_PASSWORD = "ssh_password";
 }

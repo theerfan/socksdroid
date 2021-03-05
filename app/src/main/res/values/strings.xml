@@ -15,6 +15,13 @@
     <string name="udp_proxy_sum">Forward UDP packets to badvpn-udpgw via SOCKS5. This needs badvpn-udpgw running on the remote server (normally listening on 127.0.0.1) to work.</string>
     <string name="udp_gw">UDP Gateway (Remote)</string>
 
+    <string name="ssh">SSH</string>
+    <string name="self_ssh">Connect SSH from app</string>
+    <string name="ssh_username">Username</string>
+    <string name="ssh_host">SSH Host</string>
+    <string name="ssh_pkey">Private Key</string>
+    <string name="ssh_password">Password</string>
+
     <string name="authentication">Authentication</string>
     <string name="auth_userpw">Username &amp; Password Authentication</string>
     <string name="auth_username">Username</string>

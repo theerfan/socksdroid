@@ -1,104 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
-        android:key="profile"
-        android:title="@string/profile"/>
+        app:key="profile"
+        app:title="@string/profile"/>
 
     <PreferenceCategory
-        android:title="@string/connection">
+        app:title="@string/connection">
 
         <EditTextPreference
-            android:key="server_ip"
-            android:title="@string/server_ip"
-            android:singleLine="true"/>
+            app:key="server_ip"
+            app:title="@string/server_ip"
+            app:singleLine="true"/>
 
         <EditTextPreference
-            android:key="server_port"
-            android:title="@string/server_port"
-            android:inputType="number"
-            android:singleLine="true"/>
+            app:key="server_port"
+            app:title="@string/server_port"
+            app:inputType="number"
+            app:singleLine="true"/>
 
         <CheckBoxPreference
-            android:key="ipv6_proxy"
-            android:title="@string/ipv6_proxy"
-            android:summary="@string/ipv6_proxy_sum"/>
+            app:key="ipv6_proxy"
+            app:title="@string/ipv6_proxy"
+            app:summary="@string/ipv6_proxy_sum"/>
 
         <CheckBoxPreference
-            android:key="udp_proxy"
-            android:title="@string/udp_proxy"
-            android:summary="@string/udp_proxy_sum"/>
+            app:key="udp_proxy"
+            app:title="@string/udp_proxy"
+            app:summary="@string/udp_proxy_sum"/>
 
         <EditTextPreference
-            android:key="udp_gw"
-            android:title="@string/udp_gw"
-            android:singleLine="true"
-            android:dependency="udp_proxy"/>
+            app:key="udp_gw"
+            app:title="@string/udp_gw"
+            app:singleLine="true"
+            app:dependency="udp_proxy"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/authentication">
+    <PreferenceCategory app:title="@string/ssh">
 
         <CheckBoxPreference
-            android:key="auth_userpw"
-            android:title="@string/auth_userpw"
-            android:defaultValue="false"/>
+            app:defaultValue="false"
+            app:key="self_ssh"
+            app:title="@string/self_ssh" />
 
         <EditTextPreference
-            android:key="auth_username"
-            android:title="@string/auth_username"
-            android:dependency="auth_userpw"
-            android:singleLine="true"/>
+            app:dependency="self_ssh"
+            app:key="ssh_host"
+            app:singleLine="true"
+            app:title="@string/ssh_host" />
 
         <EditTextPreference
-            android:key="auth_password"
-            android:title="@string/auth_password"
-            android:inputType="textPassword"
-            android:dependency="auth_userpw"
-            android:singleLine="true"/>
+            app:dependency="self_ssh"
+            app:key="ssh_username"
+            app:singleLine="true"
+            app:title="@string/ssh_username" />
+
+        <EditTextPreference
+            app:dependency="self_ssh"
+            app:inputType="textLongMessage"
+            app:key="ssh_pkey"
+            app:singleLine="false"
+            app:title="@string/ssh_pkey" />
+
+        <EditTextPreference
+            app:dependency="self_ssh"
+            app:inputType="textPassword"
+            app:key="ssh_password"
+            app:singleLine="true"
+            app:title="@string/auth_password" />
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/authentication">
+
+        <CheckBoxPreference
+            app:defaultValue="false"
+            app:key="auth_userpw"
+            app:title="@string/auth_userpw" />
+
+        <EditTextPreference
+            app:dependency="auth_userpw"
+            app:key="auth_username"
+            app:singleLine="true"
+            app:title="@string/auth_username" />
+
+        <EditTextPreference
+            app:dependency="auth_userpw"
+            app:inputType="textPassword"
+            app:key="auth_password"
+            app:singleLine="true"
+            app:title="@string/auth_password" />
+
+    </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/advanced">
+        app:title="@string/advanced">
 
         <ListPreference
-            android:key="adv_route"
-            android:title="@string/adv_route"
-            android:entries="@array/adv_routes"
-            android:entryValues="@array/adv_routes_values"/>
+            app:key="adv_route"
+            app:title="@string/adv_route"
+            app:entries="@array/adv_routes"
+            app:entryValues="@array/adv_routes_values"/>
 
         <EditTextPreference
-            android:key="adv_dns"
-            android:title="@string/adv_dns"
-            android:singleLine="true"/>
+            app:key="adv_dns"
+            app:title="@string/adv_dns"
+            app:singleLine="true"/>
 
         <EditTextPreference
-            android:key="adv_dns_port"
-            android:title="@string/adv_dns_port"
-            android:inputType="number"
-            android:singleLine="true"/>
+            app:key="adv_dns_port"
+            app:title="@string/adv_dns_port"
+            app:inputType="number"
+            app:singleLine="true"/>
 
         <CheckBoxPreference
-            android:key="adv_auto_connect"
-            android:title="@string/adv_auto_connect"/>
+            app:key="adv_auto_connect"
+            app:title="@string/adv_auto_connect"/>
 
         <CheckBoxPreference
-            android:key="adv_per_app"
-            android:title="@string/adv_per_app"/>
+            app:key="adv_per_app"
+            app:title="@string/adv_per_app"/>
 
         <CheckBoxPreference
-            android:key="adv_app_bypass"
-            android:title="@string/adv_app_bypass"
-            android:summary="@string/adv_app_bypass_sum"
-            android:dependency="adv_per_app"/>
+            app:key="adv_app_bypass"
+            app:title="@string/adv_app_bypass"
+            app:summary="@string/adv_app_bypass_sum"
+            app:dependency="adv_per_app"/>
 
         <EditTextPreference
-            android:key="adv_app_list"
-            android:title="@string/adv_app_list"
-            android:summary="@string/adv_app_list_sum"
-            android:dependency="adv_per_app"/>
+            app:key="adv_app_list"
+            app:title="@string/adv_app_list"
+            app:summary="@string/adv_app_list_sum"
+            app:dependency="adv_per_app"/>
 
     </PreferenceCategory>
 

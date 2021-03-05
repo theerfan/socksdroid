@@ -59,6 +59,26 @@ public class Profile {
         mPref.edit().putString(key("password"), password).apply();
     }
 
+    public boolean isSSH() {return mPref.getBoolean(key(PREF_SELF_SSH), false);}
+
+    public void setIsSSH(boolean is) { mPref.edit().putBoolean(key(PREF_SELF_SSH), is).apply();}
+
+    public String getSSH_Host() { return mPref.getString(key(PREF_SSH_HOST), ""); }
+
+    public void setSSH_Host(String host) {mPref.edit().putString(key(PREF_SSH_HOST), host);}
+
+    public String getSSH_UserName() {return mPref.getString(key(PREF_SSH_USERNAME), "");}
+
+    public void setSSH_UserName(String userName) {mPref.edit().putString(PREF_SSH_USERNAME, userName); }
+
+    public String getSSH_Pkey() {return mPref.getString(key(PREF_SSH_PKEY), "");}
+
+    public void setSSH_Pkey(String key) {mPref.edit().putString(key(PREF_SSH_PKEY), "");}
+
+    public String geSSH_Password() {return mPref.getString(key(PREF_SSH_PASSWORD), "");}
+
+    public void setSSH_Password(String pass) {mPref.edit().putString(key(PREF_SSH_PASSWORD), "");}
+
     public String getRoute() {
         return mPref.getString(key("route"), ROUTE_ALL);
     }
