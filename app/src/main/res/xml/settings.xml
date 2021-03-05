@@ -10,14 +10,11 @@
 
         <EditTextPreference
             app:key="server_ip"
-            app:title="@string/server_ip"
-            app:singleLine="true"/>
+            app:title="@string/server_ip" />
 
         <EditTextPreference
             app:key="server_port"
-            app:title="@string/server_port"
-            app:inputType="number"
-            app:singleLine="true"/>
+            app:title="@string/server_port" />
 
         <CheckBoxPreference
             app:key="ipv6_proxy"
@@ -32,7 +29,6 @@
         <EditTextPreference
             app:key="udp_gw"
             app:title="@string/udp_gw"
-            app:singleLine="true"
             app:dependency="udp_proxy"/>
 
     </PreferenceCategory>
@@ -47,34 +43,26 @@
         <EditTextPreference
             app:dependency="self_ssh"
             app:key="ssh_host"
-            app:singleLine="true"
             app:title="@string/ssh_host" />
 
         <EditTextPreference
             app:dependency="self_ssh"
             app:key="ssh_port"
-            app:singleLine="true"
-            app:title="@string/ssh_port"
-            app:inputType="number" />
+            app:title="@string/ssh_port" />
 
         <EditTextPreference
             app:dependency="self_ssh"
             app:key="ssh_username"
-            app:singleLine="true"
             app:title="@string/ssh_username" />
 
         <EditTextPreference
             app:dependency="self_ssh"
-            app:inputType="textLongMessage"
             app:key="ssh_pkey"
-            app:singleLine="false"
             app:title="@string/ssh_pkey" />
 
         <EditTextPreference
             app:dependency="self_ssh"
-            app:inputType="textPassword"
             app:key="ssh_password"
-            app:singleLine="true"
             app:title="@string/auth_password" />
 
     </PreferenceCategory>
@@ -89,14 +77,11 @@
         <EditTextPreference
             app:dependency="auth_userpw"
             app:key="auth_username"
-            app:singleLine="true"
             app:title="@string/auth_username" />
 
         <EditTextPreference
             app:dependency="auth_userpw"
-            app:inputType="textPassword"
             app:key="auth_password"
-            app:singleLine="true"
             app:title="@string/auth_password" />
 
     </PreferenceCategory>
@@ -111,14 +96,11 @@
 
         <EditTextPreference
             app:key="adv_dns"
-            app:title="@string/adv_dns"
-            app:singleLine="true"/>
+            app:title="@string/adv_dns"/>
 
         <EditTextPreference
             app:key="adv_dns_port"
-            app:title="@string/adv_dns_port"
-            app:inputType="number"
-            app:singleLine="true"/>
+            app:title="@string/adv_dns_port" />
 
         <CheckBoxPreference
             app:key="adv_auto_connect"

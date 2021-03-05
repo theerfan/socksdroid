@@ -59,7 +59,7 @@ public class SocksVpnService extends VpnService {
         final String server = intent.getStringExtra(INTENT_SERVER);
         final int port = intent.getIntExtra(INTENT_PORT, 1080);
         final String username = intent.getStringExtra(INTENT_USERNAME);
-        final String passwd = intent.getStringExtra(INTENT_PASSWORD);
+        final String password = intent.getStringExtra(INTENT_PASSWORD);
         final String route = intent.getStringExtra(INTENT_ROUTE);
         final String dns = intent.getStringExtra(INTENT_DNS);
         final int dnsPort = intent.getIntExtra(INTENT_DNS_PORT, 53);
@@ -101,7 +101,7 @@ public class SocksVpnService extends VpnService {
             Log.d(TAG, "fd: " + mInterface.getFd());
 
         if (mInterface != null)
-            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw);
+            start(mInterface.getFd(), server, port, username, password, dns, dnsPort, ipv6, udpgw);
 
         return START_STICKY;
     }

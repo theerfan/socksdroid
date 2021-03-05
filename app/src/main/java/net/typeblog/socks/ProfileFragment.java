@@ -81,7 +81,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
 
     @Override
     public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
-        super.onCreate(savedInstanceState);
+//        super.onCreate(savedInstanceState);
 //        setPreferencesFromResource(R.xml.settings, rootKey);
         addPreferencesFromResource(R.xml.settings);
         setHasOptionsMenu(true);
@@ -312,6 +312,8 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_Password.setText(mProfile.getSSH_Password());
         mprefSSH_Port.setText(String.valueOf(mProfile.getSSH_Port()));
 
+//        mPrefSSH_Password
+
         resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Password, mPrefSSH_Pkey, mprefSSH_Port);
 
         mPrefAppList.setText(mProfile.getAppList());
@@ -328,23 +330,23 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
 
     private void resetText(EditTextPreference... pref) {
         for (EditTextPreference p : pref) {
-            if ((p.getEditText().getInputType() & InputType.TYPE_TEXT_VARIATION_PASSWORD) != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-                p.setSummary(p.getText());
-            } else {
+//            if ((p.getEditText().getInputType() & InputType.TYPE_TEXT_VARIATION_PASSWORD) != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+//                p.setSummary(p.getText());
+//            } else {
                 if (p.getText().length() > 0)
                     p.setSummary(String.format(Locale.US,
                             String.format(Locale.US, "%%0%dd", p.getText().length()), 0)
                             .replace("0", "*"));
                 else
                     p.setSummary("");
-            }
+//            }
         }
     }
 
     private void resetTextN(EditTextPreference pref, Object newValue) {
-        if ((pref.getEditText().getInputType() & InputType.TYPE_TEXT_VARIATION_PASSWORD) != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-            pref.setSummary(newValue.toString());
-        } else {
+//        if ((pref.getEditText().getInputType() & InputType.TYPE_TEXT_VARIATION_PASSWORD) != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+//            pref.setSummary(newValue.toString());
+//        } else {
             String text = newValue.toString();
             if (text.length() > 0)
                 pref.setSummary(String.format(Locale.US,
@@ -352,7 +354,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
                         .replace("0", "*"));
             else
                 pref.setSummary("");
-        }
+//        }
     }
 
     private void addProfile() {
