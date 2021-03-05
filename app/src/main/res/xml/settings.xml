@@ -52,6 +52,13 @@
 
         <EditTextPreference
             app:dependency="self_ssh"
+            app:key="ssh_port"
+            app:singleLine="true"
+            app:title="@string/ssh_port"
+            app:inputType="number" />
+
+        <EditTextPreference
+            app:dependency="self_ssh"
             app:key="ssh_username"
             app:singleLine="true"
             app:title="@string/ssh_username" />

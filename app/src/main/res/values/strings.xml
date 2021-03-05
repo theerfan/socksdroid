@@ -21,6 +21,7 @@
     <string name="ssh_host">SSH Host</string>
     <string name="ssh_pkey">Private Key</string>
     <string name="ssh_password">Password</string>
+    <string name="ssh_port">SSH Binding Port</string>
 
     <string name="authentication">Authentication</string>
     <string name="auth_userpw">Username &amp; Password Authentication</string>

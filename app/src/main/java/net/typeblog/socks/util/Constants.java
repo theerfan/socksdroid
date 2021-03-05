@@ -42,5 +42,6 @@ public class Constants
             PREF_SSH_HOST = "ssh_host",
             PREF_SSH_USERNAME = "ssh_username",
             PREF_SSH_PKEY = "ssh_pkey",
-            PREF_SSH_PASSWORD = "ssh_password";
+            PREF_SSH_PASSWORD = "ssh_password",
+            PREF_SSH_PORT = "ssh_port";
 }

@@ -75,7 +75,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
 
     private ListPreference mPrefProfile, mPrefRoutes;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
-            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Pkey, mPrefSSH_Password;
+            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Pkey, mPrefSSH_Password, mprefSSH_Port;
     private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefSSH;
 
 
@@ -204,7 +204,11 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         } else if (p == mPrefSSH_Pkey) {
             mProfile.setSSH_Pkey(newValue.toString());
             return true;
-        } else {
+        } else if (p == mprefSSH_Port) {
+            mProfile.setSSH_Port(Integer.valueOf(newValue.toString()));
+            return true;
+        }
+        else {
             return false;
         }
     }
@@ -250,6 +254,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_UserName = (EditTextPreference) findPreference(PREF_SSH_USERNAME);
         mPrefSSH_Pkey = (EditTextPreference) findPreference(PREF_SSH_PKEY);
         mPrefSSH_Password = (EditTextPreference) findPreference(PREF_SSH_PASSWORD);
+        mprefSSH_Port = (EditTextPreference) findPreference(PREF_SSH_PORT);
 
         mPrefProfile.setOnPreferenceChangeListener(this);
         mPrefServer.setOnPreferenceChangeListener(this);
@@ -272,6 +277,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_UserName.setOnPreferenceChangeListener(this);
         mPrefSSH_Pkey.setOnPreferenceChangeListener(this);
         mPrefSSH_Password.setOnPreferenceChangeListener(this);
+        mprefSSH_Port.setOnPreferenceChangeListener(this);
     }
 
     private void reload() {
@@ -303,10 +309,10 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_Host.setText(mProfile.getSSH_Host());
         mPrefSSH_UserName.setText(mProfile.getSSH_UserName());
         mPrefSSH_Pkey.setText(mProfile.getSSH_Pkey());
-        mPrefSSH_Password.setText(mProfile.geSSH_Password());
+        mPrefSSH_Password.setText(mProfile.getSSH_Password());
+        mprefSSH_Port.setText(String.valueOf(mProfile.getSSH_Port()));
 
-
-        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Password, mPrefSSH_Pkey);
+        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Password, mPrefSSH_Pkey, mprefSSH_Port);
 
         mPrefAppList.setText(mProfile.getAppList());
     }

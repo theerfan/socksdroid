@@ -75,9 +75,13 @@ public class Profile {
 
     public void setSSH_Pkey(String key) {mPref.edit().putString(key(PREF_SSH_PKEY), "");}
 
-    public String geSSH_Password() {return mPref.getString(key(PREF_SSH_PASSWORD), "");}
+    public String getSSH_Password() {return mPref.getString(key(PREF_SSH_PASSWORD), "");}
 
     public void setSSH_Password(String pass) {mPref.edit().putString(key(PREF_SSH_PASSWORD), "");}
+
+    public int getSSH_Port() {return mPref.getInt(key(PREF_SSH_PORT), 1080);}
+
+    public void setSSH_Port(int port) {mPref.edit().putString(key(PREF_SSH_PORT), "");}
 
     public String getRoute() {
         return mPref.getString(key("route"), ROUTE_ALL);
