@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
         app:key="profile"
@@ -39,6 +40,14 @@
             app:defaultValue="false"
             app:key="self_ssh"
             app:title="@string/self_ssh" />
+
+<!--        android:id="@+id/switch_ssh"-->
+        <SwitchPreference
+            app:dependency="self_ssh"
+            android:title="@string/switch_ssh"
+            app:actionLayout="@layout/action_switch"
+            app:key="ssh_switch"
+            app:showAsAction="always" />
 
         <EditTextPreference
             app:dependency="self_ssh"
@@ -121,6 +130,9 @@
             app:title="@string/adv_app_list"
             app:summary="@string/adv_app_list_sum"
             app:dependency="adv_per_app"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Preference category">
 
     </PreferenceCategory>
 

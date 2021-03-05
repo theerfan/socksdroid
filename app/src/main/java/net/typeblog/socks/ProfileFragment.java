@@ -11,12 +11,16 @@ import android.os.Bundle;
 import android.os.IBinder;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 import com.takisoft.preferencex.EditTextPreference;
+//import com.takisoft.preferencex.SwitchPreferenceCompat;
 import androidx.annotation.Nullable;
+
 import androidx.preference.CheckBoxPreference;
 //import androidx.preference.EditTextPreference;
 //import android.preference.PreferenceFragment;
 import androidx.preference.Preference;
 import androidx.preference.ListPreference;
+import androidx.preference.SwitchPreference;
+
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -77,6 +81,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
             mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Pkey, mPrefSSH_Password, mprefSSH_Port;
     private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefSSH;
+    private SwitchPreference mPrefSSH_Switch;
 
 
     @Override
@@ -164,7 +169,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
             if (TextUtils.isEmpty(newValue.toString()))
                 return false;
 
-            mProfile.setDnsPort(Integer.valueOf(newValue.toString()));
+            mProfile.setDnsPort(Integer.parseInt(newValue.toString()));
             resetTextN(mPrefDnsPort, newValue);
             return true;
         } else if (p == mPrefPerApp) {
@@ -205,12 +210,13 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
             mProfile.setSSH_Pkey(newValue.toString());
             return true;
         } else if (p == mprefSSH_Port) {
-            mProfile.setSSH_Port(Integer.valueOf(newValue.toString()));
+            mProfile.setSSH_Port(Integer.parseInt(newValue.toString()));
+            return true;
+        } else if (p == mPrefSSH_Switch) {
+            mProfile.setSSH_Switch(Boolean.parseBoolean(newValue.toString()));
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -255,6 +261,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_Pkey = (EditTextPreference) findPreference(PREF_SSH_PKEY);
         mPrefSSH_Password = (EditTextPreference) findPreference(PREF_SSH_PASSWORD);
         mprefSSH_Port = (EditTextPreference) findPreference(PREF_SSH_PORT);
+        mPrefSSH_Switch = (SwitchPreference) findPreference(PREF_SSH_SWITCH);
 
         mPrefProfile.setOnPreferenceChangeListener(this);
         mPrefServer.setOnPreferenceChangeListener(this);
@@ -278,6 +285,8 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_Pkey.setOnPreferenceChangeListener(this);
         mPrefSSH_Password.setOnPreferenceChangeListener(this);
         mprefSSH_Port.setOnPreferenceChangeListener(this);
+        mPrefSSH_Switch.setOnPreferenceChangeListener(this);
+//        mPrefSSH_Switch.liste
     }
 
     private void reload() {
@@ -311,8 +320,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_Pkey.setText(mProfile.getSSH_Pkey());
         mPrefSSH_Password.setText(mProfile.getSSH_Password());
         mprefSSH_Port.setText(String.valueOf(mProfile.getSSH_Port()));
-
-//        mPrefSSH_Password
+        mPrefSSH_Switch.setChecked(mProfile.getSSH_switch());
 
         resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefSSH_Host, mPrefSSH_UserName, mPrefSSH_Password, mPrefSSH_Pkey, mprefSSH_Port);
 
@@ -330,31 +338,12 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
 
     private void resetText(EditTextPreference... pref) {
         for (EditTextPreference p : pref) {
-//            if ((p.getEditText().getInputType() & InputType.TYPE_TEXT_VARIATION_PASSWORD) != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-//                p.setSummary(p.getText());
-//            } else {
-                if (p.getText().length() > 0)
-                    p.setSummary(String.format(Locale.US,
-                            String.format(Locale.US, "%%0%dd", p.getText().length()), 0)
-                            .replace("0", "*"));
-                else
-                    p.setSummary("");
-//            }
+            p.setSummary(p.getText());
         }
     }
 
     private void resetTextN(EditTextPreference pref, Object newValue) {
-//        if ((pref.getEditText().getInputType() & InputType.TYPE_TEXT_VARIATION_PASSWORD) != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-//            pref.setSummary(newValue.toString());
-//        } else {
-            String text = newValue.toString();
-            if (text.length() > 0)
-                pref.setSummary(String.format(Locale.US,
-                        String.format(Locale.US, "%%0%dd", text.length()), 0)
-                        .replace("0", "*"));
-            else
-                pref.setSummary("");
-//        }
+        pref.setSummary(newValue.toString());
     }
 
     private void addProfile() {

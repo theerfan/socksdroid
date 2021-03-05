@@ -35,6 +35,8 @@
             </intent-filter>
         </service>
 
+        <service android:name=".SSHService" />
+
         <receiver
             android:name=".BootReceiver">
             <intent-filter>

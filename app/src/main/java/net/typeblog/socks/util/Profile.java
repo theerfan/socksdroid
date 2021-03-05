@@ -83,6 +83,10 @@ public class Profile {
 
     public void setSSH_Port(int port) {mPref.edit().putString(key(PREF_SSH_PORT), "");}
 
+    public boolean getSSH_switch() {return mPref.getBoolean(key(PREF_SSH_SWITCH), false);}
+
+    public void setSSH_Switch(boolean state) { mPref.edit().putBoolean(key(PREF_SSH_SWITCH), state); }
+
     public String getRoute() {
         return mPref.getString(key("route"), ROUTE_ALL);
     }
