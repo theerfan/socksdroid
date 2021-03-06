@@ -22,6 +22,10 @@ import static net.typeblog.socks.util.Constants.*;
 import static net.typeblog.socks.BuildConfig.DEBUG;
 
 public class SocksVpnService extends VpnService {
+    private static final String TAG = SocksVpnService.class.getSimpleName();
+    private ParcelFileDescriptor mInterface;
+    private boolean mRunning = false;
+
     class VpnBinder extends IVpnService.Stub {
         @Override
         public boolean isRunning() {
@@ -34,10 +38,6 @@ public class SocksVpnService extends VpnService {
         }
     }
 
-    private static final String TAG = SocksVpnService.class.getSimpleName();
-
-    private ParcelFileDescriptor mInterface;
-    private boolean mRunning = false;
     private final IBinder mBinder = new VpnBinder();
 
     @Override

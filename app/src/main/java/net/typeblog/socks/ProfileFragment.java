@@ -9,19 +9,15 @@ import android.content.ServiceConnection;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.IBinder;
+
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 import com.takisoft.preferencex.EditTextPreference;
-//import com.takisoft.preferencex.SwitchPreferenceCompat;
-import androidx.annotation.Nullable;
 
+import androidx.annotation.Nullable;
 import androidx.preference.CheckBoxPreference;
-//import androidx.preference.EditTextPreference;
-//import android.preference.PreferenceFragment;
 import androidx.preference.Preference;
 import androidx.preference.ListPreference;
 import androidx.preference.SwitchPreference;
-
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,8 +41,10 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
     private Profile mProfile;
 
     private Switch mSwitch;
-    private boolean mRunning = false;
-    private boolean mStarting = false, mStopping = false;
+    private boolean mRunning = false, mStarting = false, mStopping = false;
+
+    private IVpnService mBinder;
+
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName p1, IBinder binder) {
@@ -68,6 +66,7 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
             mBinder = null;
         }
     };
+
     private final Runnable mStateRunnable = new Runnable() {
         @Override
         public void run() {
@@ -75,7 +74,6 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
             mSwitch.postDelayed(this, 1000);
         }
     };
-    private IVpnService mBinder;
 
     private ListPreference mPrefProfile, mPrefRoutes;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
@@ -286,7 +284,6 @@ public class ProfileFragment extends PreferenceFragmentCompat implements Prefere
         mPrefSSH_Password.setOnPreferenceChangeListener(this);
         mprefSSH_Port.setOnPreferenceChangeListener(this);
         mPrefSSH_Switch.setOnPreferenceChangeListener(this);
-//        mPrefSSH_Switch.liste
     }
 
     private void reload() {
